@@ -17,6 +17,11 @@ vendor/
 *.swo
 *~
 
+# 数据库
+*.db
+*.sqlite
+*.sqlite3
+
 # 日志
 *.log
 

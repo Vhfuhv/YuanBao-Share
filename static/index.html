@@ -4,47 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>腾讯元宝口令红包分享</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <div class="bg-decoration">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
     <div class="container">
-        <header>
-            <h1>🧧 腾讯元宝口令红包分享</h1>
+        <header class="header">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="8" width="18" height="13" rx="2"/>
+                    <path d="M12 8V6a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2"/>
+                    <path d="M8 8V6a2 2 0 0 0-2-2h0a2 2 0 0 0-2 2v2"/>
+                    <circle cx="12" cy="14" r="2"/>
+                </svg>
+                <h1>元宝口令分享</h1>
+            </div>
             <p class="subtitle">分享你的口令，领取他人红包</p>
         </header>
 
-        <div class="stats">
+        <div class="stats-card glass-card">
             <div class="stat-item">
-                <span class="stat-number" id="totalCount">0</span>
-                <span class="stat-label">口令总数</span>
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/>
+                    <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+                    <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/>
+                </svg>
+                <div class="stat-content">
+                    <span class="stat-number" id="totalCount">0</span>
+                    <span class="stat-label">可用口令</span>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <h2>📤 上传我的口令</h2>
+        <div class="card glass-card">
+            <div class="card-header">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <h2>上传我的口令</h2>
+            </div>
             <div class="form-group">
                 <textarea
                     id="commandInput"
                     placeholder="请粘贴你的元宝口令红包..."
-                    rows="4"
+                    rows="3"
                 ></textarea>
             </div>
-            <button id="uploadBtn" class="btn btn-primary">上传口令</button>
+            <button id="uploadBtn" class="btn btn-primary">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <span>上传口令</span>
+            </button>
             <div id="uploadMessage" class="message"></div>
         </div>
 
-        <div class="card">
-            <h2>📥 获取他人口令</h2>
-            <button id="getBtn" class="btn btn-secondary">随机获取一个口令</button>
+        <div class="card glass-card">
+            <div class="card-header">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <h2>获取他人口令</h2>
+            </div>
+            <button id="getBtn" class="btn btn-secondary">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+                    <path d="M21 3v5h-5"/>
+                </svg>
+                <span>随机获取一个口令</span>
+            </button>
             <div id="commandResult" class="result"></div>
             <div id="getMessage" class="message"></div>
         </div>
 
-        <footer>
-            <p>💡 提示：复制口令后打开腾讯元宝APP即可领取红包</p>
+        <footer class="footer">
+            <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <p>复制口令后打开腾讯元宝APP即可领取红包</p>
         </footer>
     </div>
 
-    <script src="app.js"></script>
+    <script src="/static/app.js"></script>
 </body>
 </html>

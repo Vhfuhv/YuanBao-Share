@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -13,10 +13,8 @@ var DB *gorm.DB
 
 // InitDB 初始化数据库连接
 func InitDB() {
-	dsn := "root:root@tcp(127.0.0.1:3306)/yuanbao?charset=utf8mb4&parseTime=True&loc=Local"
-
 	var err error
-	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+	DB, err = gorm.Open(sqlite.Open("yuanbao.db"), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 
