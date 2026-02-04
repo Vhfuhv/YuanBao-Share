@@ -18,15 +18,17 @@ func UploadCommand(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "口令内容不能为空",
+			"success": false,
+			"message": "口令内容不能为空",
 		})
 		return
 	}
 
 	command, err := services.SaveCommand(req.Content)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "保存失败",
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"message": err.Error(), // 返回具体的错误信息
 		})
 		return
 	}
@@ -75,5 +77,32 @@ func GetCount(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"count": count,
+	})
+}
+
+// ReportInvalid 报告无效口令
+func ReportInvalid(c *gin.Context) {
+	var req UploadCommandRequest
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"message": "参数错误",
+		})
+		return
+	}
+
+	err := services.MarkAsInvalid(req.Content)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "已标记为无效",
 	})
 }

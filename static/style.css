@@ -404,6 +404,60 @@ textarea:focus {
     outline-offset: 2px;
 }
 
+/* ===== Command Actions ===== */
+.command-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.report-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: #EF4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.report-btn:hover {
+    background: #DC2626;
+    transform: translateY(-1px);
+}
+
+.report-btn:focus-visible {
+    outline: 2px solid #EF4444;
+    outline-offset: 2px;
+}
+
+/* ===== Copy Notice ===== */
+.copy-notice {
+    display: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    margin-top: 12px;
+    animation: slideIn 0.3s ease;
+}
+
+.copy-notice.success {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border: 1px solid var(--success-border);
+}
+
+.copy-notice.error {
+    background: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid var(--error-border);
+}
+
 /* ===== Footer ===== */
 .footer {
     display: flex;

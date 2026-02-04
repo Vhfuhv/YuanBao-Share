@@ -1,6 +1,8 @@
 package services
 
 import (
+	"errors"
+	"strings"
 	"yuanbao/config"
 	"yuanbao/models"
 	"yuanbao/repositories"
@@ -8,9 +10,35 @@ import (
 	"gorm.io/gorm"
 )
 
-// SaveCommand 保存口令
+// SaveCommand 保存口令（带验证）
 func SaveCommand(content string) (*models.Command, error) {
-	return repositories.SaveCommand(content)
+	// 1. 去除首尾空格
+	content = strings.TrimSpace(content)
+
+	// 2. 长度验证
+	if len(content) < 10 {
+		return nil, errors.New("口令长度不能少于10个字符")
+	}
+	if len(content) > 500 {
+		return nil, errors.New("口令长度不能超过500个字符")
+	}
+
+	// 3. 基本内容验证
+	if strings.Contains(content, "http://") || strings.Contains(content, "https://") {
+		return nil, errors.New("口令不能包含链接")
+	}
+
+	// 4. 保存到数据库（数据库会自动检查重复）
+	command, err := repositories.SaveCommand(content)
+	if err != nil {
+		// 检查是否是重复错误
+		if strings.Contains(err.Error(), "Duplicate") || strings.Contains(err.Error(), "duplicate") || strings.Contains(err.Error(), "UNIQUE") {
+			return nil, errors.New("该口令已存在，请勿重复提交")
+		}
+		return nil, err
+	}
+
+	return command, nil
 }
 
 // GetRandomCommand 获取随机口令（带悲观锁和事务）
@@ -33,6 +61,15 @@ func GetRandomCommand() (*models.Command, error) {
 			if err != nil {
 				return err
 			}
+
+			// 暂时注释掉自动删除功能，先观察数据量
+			// 如果达到3次，立即删除
+			// if command.DisplayCount >= 3 {
+			// 	err = repositories.DeleteCommand(command.ID)
+			// 	if err != nil {
+			// 		return err
+			// 	}
+			// }
 		}
 
 		return nil
@@ -44,4 +81,14 @@ func GetRandomCommand() (*models.Command, error) {
 // GetCount 获取可用口令数量
 func GetCount() (int64, error) {
 	return repositories.CountAvailableCommands()
+}
+
+// MarkAsInvalid 标记口令为无效（将 displayCount 设置为 3）
+func MarkAsInvalid(content string) error {
+	content = strings.TrimSpace(content)
+	if content == "" {
+		return errors.New("口令内容不能为空")
+	}
+
+	return repositories.MarkCommandAsInvalid(content)
 }
