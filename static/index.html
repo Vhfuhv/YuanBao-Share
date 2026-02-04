@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>腾讯元宝口令红包分享</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧧 腾讯元宝口令红包分享</h1>
+            <p class="subtitle">分享你的口令，领取他人红包</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number" id="totalCount">0</span>
+                <span class="stat-label">口令总数</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📤 上传我的口令</h2>
+            <div class="form-group">
+                <textarea
+                    id="commandInput"
+                    placeholder="请粘贴你的元宝口令红包..."
+                    rows="4"
+                ></textarea>
+            </div>
+            <button id="uploadBtn" class="btn btn-primary">上传口令</button>
+            <div id="uploadMessage" class="message"></div>
+        </div>
+
+        <div class="card">
+            <h2>📥 获取他人口令</h2>
+            <button id="getBtn" class="btn btn-secondary">随机获取一个口令</button>
+            <div id="commandResult" class="result"></div>
+            <div id="getMessage" class="message"></div>
+        </div>
+
+        <footer>
+            <p>💡 提示：复制口令后打开腾讯元宝APP即可领取红包</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# 编译产物
+yuanbao
+yuanbao.exe
+*.exe
+
+# Go 相关
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 日志
+*.log
+
+# 操作系统
+.DS_Store
+Thumbs.db
