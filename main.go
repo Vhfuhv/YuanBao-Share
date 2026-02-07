@@ -6,6 +6,7 @@ import (
 	"yuanbao/controllers"
 	"yuanbao/middleware"
 	"yuanbao/models"
+	"yuanbao/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +18,9 @@ func main() {
 	// 自动迁移数据库表
 	config.DB.AutoMigrate(&models.Command{})
 
+	// 启动爬虫定时任务
+	services.StartCrawlerScheduler()
+
 	// 创建 Gin 路由
 	r := gin.Default()
 
@@ -26,7 +30,7 @@ func main() {
 
 	// 创建限流器
 	uploadLimiter := middleware.NewRateLimiter(5, 1*time.Minute)   // 每分钟最多上传5次
-	getLimiter := middleware.NewRateLimiter(10, 1*time.Minute)     // 每分钟最多获取10次
+	getLimiter := middleware.NewRateLimiter(20, 1*time.Minute)     // 每分钟最多获取20次
 
 	// API 路由
 	api := r.Group("/api/commands")

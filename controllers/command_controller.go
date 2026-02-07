@@ -7,6 +7,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// getClientIP 获取并标准化客户端IP
+func getClientIP(c *gin.Context) string {
+	ip := c.ClientIP()
+	// 将IPv6本地地址转换为IPv4格式
+	if ip == "::1" {
+		return "127.0.0.1"
+	}
+	return ip
+}
+
 // UploadCommandRequest 上传口令请求
 type UploadCommandRequest struct {
 	Content string `json:"content" binding:"required"`
@@ -24,7 +34,10 @@ func UploadCommand(c *gin.Context) {
 		return
 	}
 
-	command, err := services.SaveCommand(req.Content)
+	// 获取客户端IP（标准化处理）
+	clientIP := getClientIP(c)
+
+	command, err := services.SaveCommand(req.Content, clientIP)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"success": false,
@@ -42,7 +55,10 @@ func UploadCommand(c *gin.Context) {
 
 // GetRandomCommand 随机获取口令
 func GetRandomCommand(c *gin.Context) {
-	command, err := services.GetRandomCommand()
+	// 获取客户端IP（标准化处理）
+	clientIP := getClientIP(c)
+
+	command, err := services.GetRandomCommand(clientIP)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "获取失败",

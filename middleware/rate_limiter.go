@@ -93,7 +93,9 @@ func (rl *RateLimiter) Middleware(action string) gin.HandlerFunc {
 		if !rl.Allow(ip) {
 			var message string
 			if action == "upload" {
-				message = "同一IP每分钟最多上传5次！"
+				message = "同一IP每分钟最多上传5次，请稍后再试"
+			} else if action == "get" {
+				message = "您的获取次数已达上限（每分钟20次），请稍后再试"
 			} else {
 				message = "操作过于频繁，请稍后再试"
 			}

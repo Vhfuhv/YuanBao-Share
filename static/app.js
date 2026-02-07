@@ -71,12 +71,20 @@ document.getElementById('getBtn').addEventListener('click', async () => {
 
     try {
         const response = await fetch(`${API_BASE}/random`);
+
+        // 处理限流错误（429状态码）
+        if (response.status === 429) {
+            const data = await response.json();
+            showMessage(messageEl, data.message || '操作过于频繁，请稍后再试', 'error');
+            return;
+        }
+
         const data = await response.json();
 
         if (data.success) {
             showCommand(resultEl, data.content);
         } else {
-            showMessage(messageEl, '暂无可用口令，请先上传你的口令', 'error');
+            showMessage(messageEl, data.message || '暂无可用口令，请先上传你的口令', 'error');
         }
     } catch (error) {
         showMessage(messageEl, '❌ 网络错误，请稍后重试', 'error');
@@ -139,10 +147,6 @@ function copyCommand() {
 async function reportInvalid() {
     const noticeEl = document.getElementById('copyNotice');
 
-    if (!confirm('确定要报告此口令无效吗？')) {
-        return;
-    }
-
     try {
         const response = await fetch(`${API_BASE}/report`, {
             method: 'POST',
@@ -155,7 +159,7 @@ async function reportInvalid() {
         const data = await response.json();
 
         if (data.success) {
-            showCopyNotice(noticeEl, '✅ 已标记为无效，感谢反馈！', 'success');
+            showCopyNotice(noticeEl, '✅ 已删除该口令，感谢反馈！', 'success');
             // 3秒后清空显示
             setTimeout(() => {
                 document.getElementById('commandResult').classList.remove('show');

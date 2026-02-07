@@ -28,3 +28,19 @@ vendor/
 # 操作系统
 .DS_Store
 Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+venv/
+.Python
+
+# 爬虫输出文件
+python_test/commands.json
+python_test/commands_v2.json
+python_test/crawler_state.json
+python_test/crawler_state_v2.json
+python_test/debug_*.html
+python_test/config.json

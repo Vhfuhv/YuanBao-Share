@@ -1,0 +1,9 @@
+{
+  "cookies": [
+    "你的第一个Cookie",
+    "你的第二个Cookie"
+  ],
+  "tieba_url": "https://tieba.baidu.com/p/10449473531",
+  "tieba_homepage": "https://tieba.baidu.com/f?ie=utf-8&kw=%E8%85%BE%E8%AE%AF%E5%85%83%E5%AE%9D&fr=search",
+  "time_threshold_minutes": 20
+}
